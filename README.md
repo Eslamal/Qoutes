@@ -1,49 +1,72 @@
-# Quotes App
-A modern Android application for displaying, saving, and sharing inspirational quotes, built with the latest Android development technologies and best practices.
+# ❝ Quotes App
 
-## ✨ Features
+A modern, feature-rich Android application designed to provide daily inspiration through a vast collection of quotes. Built using **Modern Android Development (MAD)** practices, this app demonstrates a clean architecture, robust offline capabilities, and a polished user interface.
 
-* **Dynamic Quotes:** Fetch random quotes from the [ZenQuotes API](https://zenquotes.io/).
-* **Interactive UI:** Swipe the quote card to load a new quote.
-* **Bookmarking:** Save your favorite quotes for offline access.
-* **Local Storage:** View all your saved quotes in a clean list.
-* **Gesture Controls:**
-    * Swipe left or right on a saved quote to delete it (with an "Undo" option).
-    * Long-press a saved quote to copy it to the clipboard.
-* **Share as Image:** Share any quote as a beautifully formatted image to other apps.
-* **Daily Notifications:** Receive a "Quote of the Day" notification powered by WorkManager.
-* **Modern Design:** A clean, minimal UI with a Lottie-powered splash screen and smooth transitions.
+The app supports **Dark/Light modes** and **Arabic/English localization**, ensuring a personalized user experience.
 
-## 🛠️ Tech Stack & Architecture
+---
 
-This project follows the **MVVM (Model-View-ViewModel)** architecture pattern and uses modern development tools and libraries.
+## 📸 Screenshots
 
-* **Core:**
-    * [Kotlin](https://kotlinlang.org/): Official language for Android Development.
-    * [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html): For asynchronous and non-blocking programming.
-* **Architecture:**
-    * [MVVM](https://developer.android.com/topic/architecture): Separating UI, business logic, and data layers.
-    * [Repository Pattern](https://developer.android.com/topic/architecture/data-layer): Single source of truth for data.
-* **Jetpack Components:**
-    * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel): Manages UI-related data in a lifecycle-conscious way.
-    * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata): Observable data holder for UI updates.
-    * [Room](https://developer.android.com/training/data-storage/room): Persistence library for local database storage.
-    * [Navigation Component](https://developer.android.com/guide/navigation): Manages fragment transactions and navigation logic.
-    * [Hilt](https://dagger.dev/hilt/): For dependency injection.
-    * [DataStore](https://developer.android.com/topic/libraries/architecture/datastore): For storing simple key-value settings.
-    * [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager): For reliable background tasks.
-* **Networking:**
-    * [Retrofit](https://square.github.io/retrofit/): A type-safe HTTP client for Android and Java.
-    * [OkHttp](https://square.github.io/okhttp/): An efficient HTTP client, used as the backbone for Retrofit.
-* **UI:**
-    * Android Views & XML.
-    * [ViewBinding](https://developer.android.com/topic/libraries/view-binding): To interact with views more safely and concisely.
-    * [Material Components](https://material.io/develop/android/): For modern UI elements.
-    * [Lottie](https://airbnb.design/lottie/): For rendering After Effects animations on the splash screen.
+| Splash Screen | Home Screen | Dark Mode |
+|:---:|:---:|:---:|
+| ![Splash](path/to/splash.png) | ![Home](path/to/home.png) | ![Dark Mode](path/to/dark.png) |
 
-### Architecture Flow
-The app is structured following the recommended Android architecture guidelines:
+| Quote Details | Bookmarks | Settings |
+|:---:|:---:|:---:|
+| ![Quote](path/to/quote.png) | ![Bookmarks](path/to/bookmarks.png) | ![Settings](path/to/settings.png) |
 
-`View (Activity/Fragment) <--> ViewModel <--> Repository <--> (API Service / Room DAO)`
+---
 
+## ✨ Key Features
 
+* **📖 Categorized Quotes:** Browse quotes by categories (Wisdom, Technology, Motivation, etc.).
+* **💾 Offline Bookmarks:** Save your favorite quotes locally to view them anytime without internet access.
+* **🔔 Daily Notifications:** Receive a "Quote of the Day" notification every morning using background workers.
+* **🎨 Dynamic Theming:** Full support for **Light** and **Dark** modes with dynamic color adjustments.
+* **🌍 Localization:** Seamless switching between **English** and **Arabic** languages within the app.
+* **🚀 Smooth Animations:** Engaging Lottie animations for the splash screen and UI transitions.
+* **📤 Share & Copy:** Easily share quotes as text or images with friends.
+
+---
+
+## 🛠 Tech Stack & Libraries
+
+This project follows the **MVVM (Model-View-ViewModel)** architecture pattern to ensure separation of concerns and testability.
+
+| Technology | Purpose & Why it was used |
+| :--- | :--- |
+| **Kotlin** | The primary language, chosen for its conciseness, null safety features, and interoperability with Java. |
+| **MVVM Architecture** | To separate the UI (Activity/Fragments) from the business logic (ViewModels) and data (Repository), making the code cleaner and easier to maintain. |
+| **Dagger Hilt** | For **Dependency Injection**. It reduces boilerplate code for manual dependency injection and makes managing app-wide components (like DB instances) efficient. |
+| **Coroutines & Flow** | For handling asynchronous tasks (like DB operations) and reactive data streams without blocking the main thread, ensuring a smooth UI. |
+| **Room Database** | A robust abstraction layer over SQLite. Used to cache quotes and store user bookmarks locally for offline access. |
+| **Jetpack Navigation** | Used to implement a **Single Activity Architecture**, simplifying navigation between fragments and handling back-stack operations. |
+| **WorkManager** | To schedule reliable background tasks (Daily Notifications) that run even if the app is closed or the device restarts. |
+| **DataStore** | A modern replacement for SharedPreferences to store user preferences (e.g., selected Theme, Language, Notification settings) asynchronously. |
+| **ViewBinding** | To safely interact with XML views, eliminating `findViewById` and preventing NullPointerExceptions. |
+| **Lottie Animations** | To render high-quality vector animations (Splash Screen) that are lightweight and performant. |
+| **Material Design** | To provide a modern, aesthetically pleasing UI with standard components like Cards, Floating Action Buttons, and Bottom Sheets. |
+
+---
+
+## 🏗 Architecture Overview
+
+The app is structured into three main layers:
+
+1.  **UI Layer (View):** Fragments and Activities that observe data from the ViewModel. They handle user interactions and display the state.
+2.  **Domain/Presentation Layer (ViewModel):** Holds the UI state and exposes data via `StateFlow` or `LiveData`. It acts as a bridge between the UI and the Repository.
+3.  **Data Layer (Repository & Data Source):**
+    * **Repository:** The single source of truth. It decides whether to fetch data from the local database (Room) or remote sources.
+    * **Local Data Source:** Room Database (DAO) and DataStore.
+
+---
+
+## 👤 Author
+
+**[Eslam Ali Atta]**
+
+* **LinkedIn:** [https://www.linkedin.com/in/eslam-ali-b0b874195/]
+* **Email:** [eslameng776@gmail.com]
+
+---
