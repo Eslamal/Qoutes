@@ -1,0 +1,12 @@
+[
+  { "q": "Technology is best when it brings people together.", "a": "Matt Mullenweg", "category": "technology" },
+  { "q": "It's not a faith in technology. It's faith in people.", "a": "Steve Jobs", "category": "technology" },
+  { "q": "Software is eating the world.", "a": "Marc Andreessen", "category": "technology" },
+  { "q": "Any sufficiently advanced technology is indistinguishable from magic.", "a": "Arthur C. Clarke", "category": "technology" },
+  { "q": "Talk is cheap. Show me the code.", "a": "Linus Torvalds", "category": "technology" },
+  { "q": "First, solve the problem. Then, write the code.", "a": "John Johnson", "category": "technology" },
+  { "q": "The computer was born to solve problems that did not exist before.", "a": "Bill Gates", "category": "technology" },
+  { "q": "Innovation distinguishes between a leader and a follower.", "a": "Steve Jobs", "category": "technology" },
+  { "q": "Simplicity is the soul of efficiency.", "a": "Austin Freeman", "category": "technology" },
+  { "q": "The real danger is not that computers will begin to think like men, but that men will begin to think like computers.", "a": "Sydney J. Harris", "category": "technology" }
+] 

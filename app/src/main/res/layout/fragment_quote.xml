@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
@@ -21,6 +23,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="16dp"
+            app:cardBackgroundColor="@color/surface_color"
             app:cardCornerRadius="32dp"
             app:cardElevation="8dp">
 
@@ -37,40 +40,49 @@
                     android:layout_gravity="center" />
 
                 <TextView
-                    android:id="@+id/noQuote"
-                    style="@style/fontJosefinSans"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="22sp"
-                    android:visibility="gone" />
-
-                <TextView
                     android:id="@+id/quoteTv"
                     style="@style/fontJosefinSans"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_primary"
                     android:textSize="26sp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    tools:text="This is a sample quote text." />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/noQuote"
+                    style="@style/fontWorkSans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    tools:text="Error loading quote" />
+
+                <LinearLayout
                     android:id="@+id/authorTvShareBtnParent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
                     <TextView
                         android:id="@+id/authorTv"
                         style="@style/fontWorkSans"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_weight="1"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="18sp"
+                        android:textStyle="italic"
+                        android:textAlignment="viewStart"
+                        tools:text="- Author Name" />
 
                     <ImageView
                         android:id="@+id/quoteShare"
@@ -82,10 +94,8 @@
                         android:focusable="true"
                         android:padding="8dp"
                         android:src="@drawable/ic_share"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        app:tint="@color/text_secondary" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -101,15 +111,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardHolder">
 
-    <TextView
-        android:id="@+id/extraText"
-        style="@style/fontWorkSans"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/info"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"/>
+        <TextView
+            android:id="@+id/extraText"
+            style="@style/fontWorkSans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/info"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -117,15 +127,15 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="#323ADF"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/primary"
+        android:contentDescription="@string/toogleBookMark"
         android:src="@drawable/ic_unbookmarked"
         android:tooltipText="@string/toogleBookMark"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@android:color/white"
-        android:contentDescription="@string/save_quote" />
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

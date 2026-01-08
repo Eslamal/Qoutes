@@ -11,8 +11,7 @@ import com.example.qoutes.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import okio.IOException
-import retrofit2.Response
+import java.util.Random
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,63 +20,67 @@ class QuoteViewModel @Inject constructor(
     private val quoteRepository: QuoteRepository
 ) : ViewModel() {
 
-    // observable variables
+    // المتغيرات اللي الـ UI بيسمع لها
     val quote: MutableLiveData<Resource<Quote>> = MutableLiveData()
     val bookmarked: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    init {
-        // get quote when the view model is called for the first time
-        getRandomQuote()
-    }
+    // قائمة مؤقتة بتشيل اقتباسات القسم الحالي عشان نقلب فيها بسرعة
+    private var currentQuotesList: List<Quote> = emptyList()
 
-    // function that gets quote from a background thread
-    fun getRandomQuote() = viewModelScope.launch {
-        bookmarked.postValue(false)
-        safeQuotesCall()
-    }
+    // 1. دالة بنناديها أول ما نفتح القسم (بتاخد اسم القسم ID)
+    fun loadQuotesForCategory(categoryId: String) {
+        quote.postValue(Resource.Loading())
 
-    // function that checks for possible phone states before making API requests
-    // for example: internet connectivity issues
-    private suspend fun safeQuotesCall() {
-        try {
-            if (internet.hasInternetConnection()) {
-                quote.postValue(Resource.Loading())
-                val response = quoteRepository.getRandomQuote()
-                quote.postValue(handleQuoteResponse(response))
+        // بنراقب الداتا بيز عشان لو حصل أي تغيير، وبنجيب الداتا الخاصة بالقسم
+        // ملحوظة: observeForever بتفضل شغالة، في التطبيقات الكبيرة بنستخدم LiveData في الـ Fragment
+        // بس هنا عشان التبسيط وسرعة التنفيذ
+        quoteRepository.getQuotesByCategory(categoryId).observeForever { quotes ->
+            if (quotes.isNotEmpty()) {
+                currentQuotesList = quotes
+                // لو دي أول مرة واللستة كانت فاضية، اعرض أول واحد
+                if (quote.value !is Resource.Success) {
+                    showRandomQuoteFromList()
+                }
             } else {
-                quote.postValue(Resource.Error("No internet connection."))
-            }
-        } catch (t: Throwable) {
-            when (t) {
-                is IOException -> quote.postValue(Resource.Error("Network Failure"))
-                else -> quote.postValue(Resource.Error("Conversion Error"))
+                quote.postValue(Resource.Error("لا توجد اقتباسات في هذا القسم حالياً"))
             }
         }
     }
 
-    // convert API response to resource type that can be used to fetch status of response
-    private fun handleQuoteResponse(response: Response<List<Quote>>): Resource<Quote> {
-        if (response.isSuccessful) {
-            return Resource.Success(response.body()!![0])
+    // 2. دالة تختار واحد عشوائي من القائمة المحلية (بدون نت)
+    fun showRandomQuoteFromList() {
+        if (currentQuotesList.isNotEmpty()) {
+            val randomIndex = Random().nextInt(currentQuotesList.size)
+            val randomQuote = currentQuotesList[randomIndex]
+
+            // تحديث زرار المفضلة بناءً على حالة الاقتباس
+            bookmarked.postValue(randomQuote.isBookmarked)
+
+            // عرض الاقتباس
+            quote.postValue(Resource.Success(randomQuote))
         }
-        return Resource.Error(response.message())
     }
 
-    // save a particular quote to the database
+    // 3. حفظ الاقتباس (تعديل حالته لـ Bookmarked)
     fun saveQuote(quote: Quote) = viewModelScope.launch {
-        quoteRepository.upsert(quote)
+        quote.isBookmarked = true
+        quoteRepository.upsert(quote) // upsert هتعمل تحديث للصف
         bookmarked.postValue(true)
     }
 
-    // get all the saved quotes from the database
-    fun getSavedQuotes() = quoteRepository.getSavedQuotes()
-
-    // delete a particular quote
+    // 4. إزالة من المفضلة (تعديل حالته لـ Un-bookmarked)
+    // ملحوظة: مش بنستخدم deleteQuote عشان ده هيمسحه من القسم كمان!
+    // إحنا بس بنلغي علامة الحفظ
     fun deleteQuote(quote: Quote) = viewModelScope.launch {
-        quoteRepository.deleteQuote(quote)
+        quote.isBookmarked = false
+        quoteRepository.upsert(quote)
         bookmarked.postValue(false)
     }
 
+    // دالة لجلب الاقتباسات المحفوظة فقط (لصفحة الـ Bookmarks)
+    fun getSavedQuotes() = quoteRepository.getSavedQuotes()
+
+    // --- إعدادات التطبيق (زي ما هي) ---
     fun <T> saveSetting(pref: Preference<T>, value: T) = viewModelScope.launch {
         quoteRepository.saveSetting(pref, value)
     }

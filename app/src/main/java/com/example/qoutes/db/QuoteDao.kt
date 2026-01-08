@@ -1,40 +1,34 @@
-/*
- * MIT License
- *
- * Copyright (c) 2021 Gourav Khunger
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 package com.example.qoutes.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.qoutes.models.Quote
+
 @Dao
 interface QuoteDao {
+    // غيرنا الاستراتيجية لـ IGNORE أو REPLACE حسب تفضيلك
+    // بس عشان الـ AutoGenerate يشتغل صح مع الداتا الجديدة
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(quotes: List<Quote>)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(quote: Quote): Long
 
-    @Query("SELECT * FROM quotes")
+    // دالة جديدة تجيب الاقتباسات حسب القسم
+    @Query("SELECT * FROM quotes WHERE category = :category ORDER BY RANDOM()")
+    fun getQuotesByCategory(category: String): LiveData<List<Quote>>
+
+    // هات لي بس الحاجات اللي المستخدم عملها حفظ
+    @Query("SELECT * FROM quotes WHERE isBookmarked = 1")
     fun getSavedQuotes(): LiveData<List<Quote>>
 
     @Delete
     suspend fun deleteSavedQuote(quote: Quote)
+
+    // دالة عشان نمسح كل الداتا القديمة لو حبيت تعمل تحديث
+    @Query("DELETE FROM quotes")
+    suspend fun deleteAllQuotes()
+
+    @Query("SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandomQuoteForNotification(): Quote?
 }

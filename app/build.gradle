@@ -21,11 +21,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.qoutes"
+        applicationId "com.example.qoutess"
         minSdkVersion 29
         targetSdkVersion 34
-        versionCode 6
-        versionName "2.1.3"
+        versionCode 2
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -60,11 +60,14 @@ dependencies {
     implementation "androidx.core:core-ktx:1.13.1"
     implementation "androidx.appcompat:appcompat:1.7.0"
     implementation "com.google.android.material:material:1.12.0"
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation libs.androidx.activity
     testImplementation "junit:junit:4.13.2"
     implementation "com.google.code.gson:gson:2.10"
     androidTestImplementation "androidx.test.ext:junit:1.2.1"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.6.1"
+    implementation 'com.airbnb.android:lottie:6.4.0'
 
     // Architectural Components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6"

@@ -1,26 +1,31 @@
 package com.example.qoutes
 
-import android.Manifest
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
-import androidx.core.content.ContextCompat
 import androidx.work.*
-import androidx.work.ListenableWorker.Result
+import com.example.qoutes.util.JsonDataLoader
 import com.example.qoutes.workers.DailyQuoteWorker
 import dagger.hilt.android.HiltAndroidApp
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @HiltAndroidApp
 class QuotesApplication : Application() {
 
+    // حقن كلاس تحميل البيانات
+    @Inject
+    lateinit var dataLoader: JsonDataLoader
+
     override fun onCreate() {
         super.onCreate()
 
-        // create notification channels for SDK >= SDK 26
+        // 1. تشغيل عملية تحميل البيانات من ملفات JSON عند فتح التطبيق
+        dataLoader.loadDataIfNeeded()
+
+        // 2. إعداد قنوات الإشعارات (للأندرويد 8+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager: NotificationManager =
                 this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -36,17 +41,16 @@ class QuotesApplication : Application() {
             notificationManager.createNotificationChannel(channel)
         }
 
+        // 3. إعداد الـ Worker للإشعارات اليومية
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        // setup work request for daily motivational quote
         val workRequest = PeriodicWorkRequest
             .Builder(DailyQuoteWorker::class.java, 1, TimeUnit.DAYS)
             .setConstraints(constraints)
             .build()
 
-        // enqueue unique periodic work so it doesn't get repeated
         WorkManager
             .getInstance(this)
             .enqueueUniquePeriodicWork(
@@ -55,5 +59,4 @@ class QuotesApplication : Application() {
                 workRequest
             )
     }
-
 }

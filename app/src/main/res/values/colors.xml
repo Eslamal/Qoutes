@@ -2,6 +2,27 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primary">#6200EE</color>
+    <color name="primary_variant">#3700B3</color>
+    <color name="secondary">#03DAC5</color>
+
+    <color name="background_color">#F5F5F5</color>
+    <color name="surface_color">#FFFFFF</color>
+    <color name="text_primary">#121212</color>
+    <color name="text_secondary">#757575</color>
+
+    <color name="cat_prayers">#8E44AD</color>   <color name="cat_wisdom">#009688</color>    <color name="cat_proverbs">#2980B9</color>  <color name="cat_books">#D35400</color>     <color name="cat_motivation">#2C3E50</color> <color name="cat_success">#C0392B</color>    <color name="cat_stoicism">#34495E</color>   <color name="cat_tech">#607D8B</color>       <color name="backg">#8e44ad</color>
     <color name="deep_blue">#FF3700B3</color>
     <color name="light_blue">#2856C8</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <color name="switch_thumb_color_on">@color/purple_500</color>
+    <color name="switch_thumb_color_off">@color/teal_700</color>
+    <color name="switch_track_color_on">@color/purple_200</color>
+    <color name="switch_track_color_off">@color/teal_200</color>
 </resources>

@@ -10,7 +10,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.work.Worker
+import androidx.work.CoroutineWorker // استخدمنا CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.qoutes.R
 import com.example.qoutes.repository.QuoteRepository
@@ -19,14 +19,12 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
+// غيرنا Worker لـ CoroutineWorker
 class DailyQuoteWorker(
     private val context: Context,
     params: WorkerParameters
-) : Worker(context, params) {
+) : CoroutineWorker(context, params) {
 
     @EntryPoint
     @InstallIn(SingletonComponent::class)
@@ -34,31 +32,32 @@ class DailyQuoteWorker(
         fun getRepository(): QuoteRepository
     }
 
+    // الحقن اليدوي عشان Hilt مع Worker
     private val injector = EntryPoints.get(context, Injector::class.java)
-
-    // get the repository
     private val quoteRepository = injector.getRepository()
 
-    override fun doWork(): Result {
+    // الدالة بقت suspend عشان تشتغل في الخلفية صح
+    override suspend fun doWork(): Result {
 
-        // check if notification permission is granted
-        if (
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
-            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
+        // 1. التأكد من إذن الإشعارات (للأندرويد 13+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
             PackageManager.PERMISSION_GRANTED
-        ) CoroutineScope(Dispatchers.IO).launch {
+        ) {
+            // لو مفيش إذن، منقدرش نبعت إشعار، فننهي المهمة بفشل
+            return Result.failure()
+        }
 
-            // get quote of the day from the api
-            val result = quoteRepository.getQuoteOfTheDay()
+        return try {
+            // 2. نجيب اقتباس عشوائي من الداتا بيز المحلية (Offline First)
+            val randomQuote = quoteRepository.getRandomQuoteForNotification()
 
-            if (result.isSuccessful) {
-                // generate a notification intent
-                val notificationIntent = Intent(context, QuotesActivity::class.java)
-                    .setFlags(
-                        Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    )
+            if (randomQuote != null) {
+                // 3. نجهز الضغطة على الإشعار تفتح التطبيق
+                val notificationIntent = Intent(context, QuotesActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                }
 
-                // generate pending intent from the intent
                 val pendingIntent: PendingIntent = PendingIntent.getActivity(
                     context,
                     0,
@@ -66,37 +65,36 @@ class DailyQuoteWorker(
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                 )
 
-                // setup notification builder
+                // 4. بناء الإشعار
                 val builder = NotificationCompat.Builder(
                     context,
                     context.getString(R.string.daily_notif_id)
                 )
-                    .setSmallIcon(R.drawable.ic_motivation)
+                    .setSmallIcon(R.drawable.ic_motivation) // تأكد إن الأيقونة دي موجودة
                     .setContentTitle(context.getString(R.string.notif_title))
-                    .setContentText(
-                        result.body()!![0].quote
-                    )
+                    .setContentText(randomQuote.quote) // نص الاقتباس
                     .setStyle(
                         NotificationCompat.BigTextStyle()
-                            .bigText(
-                                // add author info in the expanded notification
-                                result.body()!![0].quote + "\n\n- ${result.body()!![0].author}"
-                            )
+                            .bigText("${randomQuote.quote}\n\n- ${randomQuote.author}")
                     )
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setContentIntent(pendingIntent)
-                    .setSound(
-                        RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                    )
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .setAutoCancel(true)
 
-                // send the notification
+                // 5. إرسال الإشعار
                 val managerCompat = NotificationManagerCompat.from(context)
-                managerCompat.notify(420, builder.build())
-            }
-        }
+                // تأكدنا من الإذن فوق، فالتحذير ده ممكن نتجاهله هنا
+                managerCompat.notify(1, builder.build())
 
-        // who cares even if the request failed, nvm
-        return Result.success()
+                Result.success()
+            } else {
+                // لو الداتا بيز فاضية
+                Result.failure()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Result.failure()
+        }
     }
 }

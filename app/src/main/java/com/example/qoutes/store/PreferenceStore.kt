@@ -19,6 +19,10 @@ data class Preference<T>(
     companion object {
         val ASK_NOTIF_PERM = Preference(booleanPreferencesKey("ask_notif_perm"), true)
         val CHECK_FOR_UPDATES = Preference(booleanPreferencesKey("check_for_updates"), false)
+
+        // ضيف دول
+        val IS_DARK_MODE = Preference(booleanPreferencesKey("is_dark_mode"), false)
+        val APP_LANGUAGE = Preference(androidx.datastore.preferences.core.stringPreferencesKey("app_language"), "en")
     }
 }
 

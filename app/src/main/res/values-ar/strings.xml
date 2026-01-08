@@ -1,0 +1,58 @@
+<resources>
+    <string name="myBookMarks">مفضلتي</string>
+
+    <string name="quote">\"%1$s\"</string>
+    <string name="author">- %1$s</string>
+
+    <string name="swipe_hint">اسحب لليسار للاقتباس التالي &lt;&lt;</string>
+    <string name="release_hint">اترك الشاشة للتحميل!</string>
+    <string name="info">اسحب لليسار للاقتباس التالي</string>
+    <string name="release">اترك الشاشة للتحميل!</string>
+
+    <string name="greeting">أهلاً بك 👋</string>
+    <string name="subtitle">ماذا تود أن تقرأ اليوم؟</string>
+
+    <string name="cat_prayers">أدعية وأذكار</string>
+    <string name="cat_wisdom">حكم ومواعظ</string>
+    <string name="cat_proverbs">أمثال شعبية</string>
+    <string name="cat_books">اقتباسات كتب</string>
+    <string name="cat_motivation">تحفيز</string>
+    <string name="cat_success">نجاح</string>
+    <string name="cat_stoicism">فلسفة</string>
+    <string name="cat_tech">تكنولوجيا</string>
+
+    <string name="noBookmarks">لا توجد اقتباسات محفوظة!</string>
+
+    <string name="bookmarks">الذهاب للمفضلة.</string>
+    <string name="back">العودة للرئيسية.</string>
+
+    <string name="toogleBookMark">حفظ</string>
+    <string name="share_description">مشاركة كصورة</string>
+    <string name="save_quote">حفظ الاقتباس</string>
+
+    <string name="download">تحميل</string>
+    <string name="update_text">نسخة v%s متاحة الآن!</string>
+    <string name="download_url">https://play.google.com/store/apps/details?id=com.example.quotes</string>
+
+    <string name="daily_notif_id">daily_wisdom</string>
+    <string name="daily_notif_name">حكمة اليوم</string>
+    <string name="daily_notif_desc">
+        احصل على جرعتك اليومية من الحكمة عبر الإشعارات!
+    </string>
+
+    <string name="notif_title">حكمة اليوم وصلت!</string>
+
+    <string name="manage">إدارة</string>
+    <string name="settings">الإعدادات</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="notif_desc">
+        مطلوب إذن الإشعارات لإرسال حكمة اليوم.
+    </string>
+
+    <string name="appearance">المظهر</string>
+    <string name="dark_mode">الوضع الليلي</string>
+    <string name="language">اللغة</string>
+    <string name="app_language">لغة التطبيق</string>
+    <string name="lang_en">English</string>
+    <string name="lang_ar">العربية</string>
+</resources>

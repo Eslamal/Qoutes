@@ -5,12 +5,22 @@
     <string name="quote">\"%1$s\"</string>
     <string name="author">- %1$s</string>
 
-    <string name="info">
-        Swipe left on the card to load next Quote.
-    </string>
-    <string name="release">
-        Release to load the next Quote!
-    </string>
+    <string name="swipe_hint">Swipe left for next quote &lt;&lt;</string>
+    <string name="release_hint">Release to load!</string>
+    <string name="info">Swipe left for next quote</string>
+    <string name="release">Release to load!</string>
+
+    <string name="greeting">Welcome Back 👋</string>
+    <string name="subtitle">What would you like to read today?</string>
+
+    <string name="cat_prayers">Prayers &amp; Azkar</string>
+    <string name="cat_wisdom">Wisdom</string>
+    <string name="cat_proverbs">Proverbs</string>
+    <string name="cat_books">Book Quotes</string>
+    <string name="cat_motivation">Motivation</string>
+    <string name="cat_success">Success</string>
+    <string name="cat_stoicism">Stoicism</string>
+    <string name="cat_tech">Technology</string>
 
     <string name="noBookmarks">No Bookmarked Quote to show!</string>
 
@@ -23,7 +33,7 @@
 
     <string name="download">Download</string>
     <string name="update_text">v%s of QuotesApp is available!</string>
-    <string name="download_url">https://l.gourav.sh/quotesapp</string>
+    <string name="download_url">https://play.google.com/store/apps/details?id=com.example.quotes</string>
 
     <string name="daily_notif_id">daily_wisdom</string>
     <string name="daily_notif_name">Daily wisdom</string>
@@ -40,4 +50,10 @@
         Notification permissions are required to send quote of the day.
     </string>
 
+    <string name="appearance">Appearance</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="language">Language</string>
+    <string name="app_language">App Language</string>
+    <string name="lang_en">English</string>
+    <string name="lang_ar">العربية</string>
 </resources>

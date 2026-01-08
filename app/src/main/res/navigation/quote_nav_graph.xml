@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/quote_nav_graph"
-    app:startDestination="@id/quoteFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/quote_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <action
+        android:id="@+id/action_global_to_bookmarkFragment"
+        app:destination="@id/bookmarkFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.qoutes.ui.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_quoteFragment"
+            app:destination="@id/quoteFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
     <fragment
         android:id="@+id/quoteFragment"
-        android:name="com.example.qoutes.ui.fragments.QuoteFragment">
+        android:name="com.example.qoutes.ui.fragments.QuoteFragment"
+        android:label="Quote">
+
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            android:defaultValue="general" />
+
         <action
             android:id="@+id/action_quoteFragment_to_bookmarkFragment"
             app:destination="@id/bookmarkFragment"
@@ -14,7 +45,9 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/bookmarkFragment"
-        android:name="com.example.qoutes.ui.fragments.BookmarkFragment"/>
+        android:name="com.example.qoutes.ui.fragments.BookmarkFragment"
+        android:label="Bookmarks"/>
 </navigation>

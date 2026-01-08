@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="primary">#BB86FC</color>
+    <color name="primary_variant">#3700B3</color>
+    <color name="secondary">#03DAC5</color>
+
+    <color name="background_color">#121212</color>
+    <color name="surface_color">#1E1E1E</color>
+    <color name="text_primary">#EAEAEA</color>
+    <color name="text_secondary">#B0B0B0</color>
+
+    <color name="cat_prayers">#9B59B6</color>   <color name="cat_wisdom">#1ABC9C</color>    <color name="cat_proverbs">#3498DB</color>  <color name="cat_books">#E67E22</color>     <color name="cat_motivation">#34495E</color> <color name="cat_success">#E74C3C</color>    <color name="cat_stoicism">#5D6D7E</color>   <color name="cat_tech">#95A5A6</color>       <color name="backg">#8e44ad</color>
+    <color name="deep_blue">#BB86FC</color> <color name="light_blue">#2856C8</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+
+    <color name="switch_thumb_color_on">@color/primary</color>
+    <color name="switch_thumb_color_off">#B0B0B0</color>
+    <color name="switch_track_color_on">#30BB86FC</color> <color name="switch_track_color_off">#40B0B0B0</color>
+</resources>

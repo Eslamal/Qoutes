@@ -51,7 +51,7 @@ object AppModule {
         context.applicationContext,
         QuoteDataBase::class.java,
         "quote_db.db"
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     @Provides
     fun providesQuoteDao(quoteDataBase: QuoteDataBase): QuoteDao = quoteDataBase.getQuoteDao()
