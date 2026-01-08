@@ -13,7 +13,7 @@ The app supports **Dark/Light modes** and **Arabic/English localization**, ensur
 | ![App Screen](qoutesApp/photo_2026-01-09_00-30-52.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-30-54.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-30-55.jpg) |
 | ![App Screen](qoutesApp/photo_2026-01-09_00-30-56.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-30-59.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-31-14.jpg) |
 | ![App Screen](qoutesApp/photo_2026-01-09_00-31-16.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-32-23.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-32-32.jpg) |
-| 
+
 
 ---
 
