@@ -8,13 +8,12 @@ The app supports **Dark/Light modes** and **Arabic/English localization**, ensur
 
 ## 📸 Screenshots
 
-| Splash Screen | Home Screen | Dark Mode |
+| | | |
 |:---:|:---:|:---:|
-| ![Splash](path/to/splash.png) | ![Home](path/to/home.png) | ![Dark Mode](path/to/dark.png) |
-
-| Quote Details | Bookmarks | Settings |
-|:---:|:---:|:---:|
-| ![Quote](path/to/quote.png) | ![Bookmarks](path/to/bookmarks.png) | ![Settings](path/to/settings.png) |
+| ![App Screen](qoutesApp/photo_2026-01-09_00-30-52.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-30-54.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-30-55.jpg) |
+| ![App Screen](qoutesApp/photo_2026-01-09_00-30-56.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-30-59.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-31-14.jpg) |
+| ![App Screen](qoutesApp/photo_2026-01-09_00-31-16.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-32-23.jpg) | ![App Screen](qoutesApp/photo_2026-01-09_00-32-32.jpg) |
+| ![App Screen](qoutesApp/اسم_الصورة_رقم_10_هنا.jpg) | ![App Screen](qoutesApp/اسم_الصورة_رقم_11_هنا.jpg) | |
 
 ---
 
